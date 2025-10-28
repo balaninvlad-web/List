@@ -1,0 +1,22 @@
+digraph G{
+rankdir = LR;
+     node [shape=record];
+    node0u [shape=Mecord; style = filled; fillcolor = "#c0ffc0"; color = "#008000"; label="<f0> 0u | <f1> data: 217217217.000000 | <f2> next: 217217217 | <f3> prev: 217217217", style=filled, fillcolor=red];
+    node1u [shape=Mecord; style = filled; fillcolor = "#c00fc0"; color = "#080000"; label="<f0> 1u | <f1> data: 1.000000 | <f2> next: 3 | <f3> prev: 3"];
+    node2u [shape=Mecord; style = filled; fillcolor = "#ffc0c0"; color = "#800000"; label="<f0> 2u | <f1> data: 0.000000 | <f2> next: 4 | <f3> prev: -1", style=filled, fillcolor=green];
+    node3u [shape=Mecord; style = filled; fillcolor = "#c00fc0"; color = "#080000"; label="<f0> 3u | <f1> data: 3.000000 | <f2> next: 1 | <f3> prev: 1"];
+    node4u [shape=Mecord; style = filled; fillcolor = "#ffc0c0"; color = "#800000"; label="<f0> 4u | <f1> data: 0.000000 | <f2> next: 5 | <f3> prev: -1", style=filled, fillcolor=green];
+    node5u [shape=Mecord; style = filled; fillcolor = "#ffc0c0"; color = "#800000"; label="<f0> 5u | <f1> data: 0.000000 | <f2> next: 0 | <f3> prev: -1", style=filled, fillcolor=green];
+    node0u:f2 -> node217217217:f0 [color=green];
+    node1u:f2 -> node3:f0 [color=green];
+    node2u:f2 -> node4:f0 [color=green];
+    node3u:f2 -> node1:f0 [color=green];
+    node4u:f2 -> node5:f0 [color=green];
+    node0u:f3 -> node217217217:f0 [color=blue];
+    node1u:f3 -> node3:f0 [color=blue];
+    node3u:f3 -> node1:f0 [color=blue];
+    head [shape=plaintext];
+    tail [shape=plaintext];
+    head -> node0:f0 [color=red];
+    tail -> node0:f0 [color=red];
+}
