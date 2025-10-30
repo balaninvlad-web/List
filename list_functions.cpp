@@ -1,367 +1,390 @@
 #include "list_functions.h"
+#include "create_log_file.h"
 
 const int START_OF_DATA = 1;
-const int CANAREICA1 = 217217217;
+const int BITS_IN_BYTE = 8;
 
-ListErr_t ListCtor (my_list_t* List, int capacity)
+ListErr_t ListCtor (my_list_t* list, int capacity)
 {
-    assert(List);
+    assert(list);
 
-    List->capacity = capacity;
+    list->capacity = capacity;
 
-    List->data = (data_t*)calloc(List->capacity + 2, sizeof(data_t));
-    List->next = (next_t*)calloc(List->capacity + 2, sizeof(next_t));
-    List->prev = (prev_t*)calloc(List->capacity + 2, sizeof(prev_t));
+    list->data = (data_t*)calloc(list->capacity + 2, sizeof(data_t));
+    list->next = (next_t*)calloc(list->capacity + 2, sizeof(next_t));
+    list->prev = (prev_t*)calloc(list->capacity + 2, sizeof(prev_t));
 
-    if (!List->data || !List->next || !List->prev)
+    if (!list->data || !list->next || !list->prev)
     {
         return ERORRDATANULL;
     }
-
-    for(size_t i = START_OF_DATA; i < List->capacity; i++)
+    // TODO сделать в функцию когда напишу реалокацию
+    for (size_t i = START_OF_DATA; i < list->capacity; i++)
     {
-        if(i == List->capacity)
-            List->next[i] = 0;
+        if(i == list->capacity)
+            list->next[i] = 0;
         else
-            List->next[i] = i + 1;
+            list->next[i] = i + 1;
     }
 
-    for(size_t i = 1; i <= List->capacity; i++)
+    for (size_t i = 1; i <= list->capacity; i++)
     {
-        List->prev[i] = -1;
+        list->prev[i] = -1;
     }
 
-    List->data[0] = CANAREICA1;
+    list->data[0] = 1;
 
-    List->next[0] = CANAREICA1;
+    list->next[0] = 0;
 
-    List->prev[0] = CANAREICA1;
+    list->prev[0] = 0;
 
-    List->first_free_pos = 1;
-    List->Size = 0;
-    List->head = 0;
-    List->tail = 0;
+    Set_first_free_pos(list, 1);
+    list->size = 0;
 
     #ifdef DEBUG
-        verificator (List, __FILE__, __func__ ,__LINE__);
+        verificator (list, __FILE__, __func__ ,__LINE__);
     #endif
 
     return NOERORR;
 }
 
-ListErr_t ListDtor (my_list_t* List)
+ListErr_t ListDtor (my_list_t* list)
 {
-    //stk1 -> sizestk = 1000000;
+    if (list == NULL)
+    {
+        fprintf(stderr, "ERORR: list is NULL before Destructor\n");
+        return ERORRLISTNULL;
+    }
+
+    if (list->data == NULL)
+    {
+        fprintf(stderr, "ERORR: data is NULL before Destructor\n");
+        return ERORRDATANULL;
+    }
+
+    if (list->next == NULL)
+    {
+        fprintf(stderr, "ERORR: next is NULL before Destructor\n");
+        return ERORRNEXTNULL;
+    }
+
+    if (list->prev == NULL)
+    {
+        fprintf(stderr, "ERORR: prev is NULL before Destructor\n");
+        return ERORRPREVNULL;
+    }
 
     #ifdef DEBUG
-        verificator (List, __FILE__, __func__ ,__LINE__);
+        verificator (list, __FILE__, __func__, __LINE__);
     #endif
 
-    free(List->data);
-    free(List->next);
-    free(List->prev);
-    List->capacity = 0;
+    free (list->data);
+    free (list->next);
+    free (list->prev);
+    list->capacity = 0;
 
     return NOERORR;
 }
 
-ListErr_t verificator (my_list_t* List, const char* file, const char* func, int line)
+ListErr_t Realocation_list (my_list_t* list)
+{
+    assert(list);
+
+    data_t* old_data = list->data;
+    next_t* old_next = list->next;
+    prev_t* old_prev = list->prev;
+
+    size_t new_capacity = 2 * capacity;
+
+    data_t* new_data = (data_t*)realloc(list->data, new_capacity * sizeof(data_t));
+
+    next_t* new_next = (next_t*)realloc(list->next, new_capacity * sizeof(next_t));
+
+    prev_t* new_prev = (prev_t*)realloc(list->prev, new_capacity * sizeof(prev_t));
+
+    if (!new_data || !new_next || !new_prev)
+    {
+        fprintf("hrjdosk");
+        if (new_data) free(new_data);
+        if (new_next) free(new_next);
+        if (new_prev) free(new_prev);
+
+        list->data = old_data;
+        list->next = old_next;
+        list->prev = old_prev;
+
+        return -1;
+    }
+
+    list->data = new_data;
+    list->next = new_next;
+    list->prev = new_prev;
+
+    for(size_t i = capacity; i < new_capacity; i++)
+    {
+        list->data[i] = 0;
+
+        if (i == new_capacity - 1)
+        {
+            list->next[i] = 0;
+        }
+        else
+        {
+            list->next[i] = i + 1;
+        }
+
+        list->prev[i] = -1;
+    }
+
+
+
+}
+
+ListErr_t verificator (my_list_t* list, const char* file, const char* func, int line)
 {
     int counter_of_err = 0;
 
-    if (List == NULL)
+    if (list == NULL) // 1 ошибка
     {
-        counter_of_err |=ERORRLISTNULL;
+        counter_of_err |= ERORRLISTNULL;
     }
-    if (List->data == NULL)
+    if (list->data == NULL) // 2 ошибка
     {
-        counter_of_err |=ERORRDATANULL;
+        counter_of_err |= ERORRDATANULL;
     }
-    if (List->next == NULL)
+    if (list->next == NULL) // 3 ошибка
     {
-        counter_of_err |=ERORRNEXTNULL;
+        counter_of_err |= ERORRNEXTNULL;
     }
-    if (List->prev == NULL)
+    if (list->prev == NULL) // 4 ошибка
     {
-        counter_of_err |=ERORRPREVNULL;
+        counter_of_err |= ERORRPREVNULL;
     }
-    if (fabs(List->data[0] - CANAREICA1) > 1e-6)
+    /*if (list->next[list->prev[0]] != 0) // 5 ошибка
     {
-        counter_of_err |= ERORRCANAREICADATA;
+       counter_of_err |= ERORRBADTAIL;
     }
-    if (List->next[0] != CANAREICA1)
+    if (list->prev[list->next[0]] != 0) // 6 ошибка
     {
-        counter_of_err |=ERORRCANAREICANEXT;
+        counter_of_err |= ERORRBADHEAD;
+    }*/
+    if (list->size != Get_list_size(list))
+    {
+        counter_of_err |= ERORRSIZE; // 7 ошибка
     }
-    if (List->prev[0] != CANAREICA1)
+    if (Get_head(list) == Get_tail(list))
     {
-        counter_of_err |=ERORRCANAREICAPREV;
-    }
-    if (List->next[List->tail] != 0)
-    {
-        counter_of_err |=ERORRBADTAIL;
-    }
-    if (List->prev[List->head] != 0)
-    {
-        counter_of_err |=ERORRBADHEAD;
+        counter_of_err |= ERORRSIZEZERO; // 8 ошибка
     }
     if (counter_of_err > 0)
-        ListDump(List, counter_of_err, file, func, line);
+        ListDump(list, counter_of_err, file, func, line); // dont call dump here
 
     return counter_of_err;
 }
 
-ListErr_t ListDump (my_list_t* List, int counter_of_err, const char* file, const char* func, int line)
+ListErr_t ListDump (my_list_t* list, int counter_of_err, const char* file, const char* func, int line)
 {
-    fprintf(stderr, "======:LIST DUMP:======\n\n");
+    fprintf(stderr, "\n======:list DUMP:======\n\n");
 
-    fprintf(stderr, "FIRST FREE POS: %d\n", List->first_free_pos);
-
-    fprintf(stderr, "Capacity: %lu\n", (unsigned long)List->capacity);
-    fprintf(stderr, "Head: %d, Tail: %d\n", List->head, List->tail);
-    fprintf(stderr, "First free: %d\n", List->first_free_pos);
-    fprintf(stderr, "Size: %lu\n", (unsigned long)List->Size);
+    fprintf(stderr, "Capacity: %lu\n", (unsigned long)list->capacity);
+    fprintf(stderr, "Head: %d \n Tail: %d\n", Get_head(list), Get_tail(list));
+    fprintf(stderr, "First free: %d\n", Get_first_free_pos(list));
+    fprintf(stderr, "size: %lu\n", (unsigned long)list->size);
 
     printf("\n");
 
-    fprintf(stderr, "LIST <int> in file: %s, function: %s, in line: %d", file, func, line);
+    fprintf(stderr, "list <int> in file: %s, function: %s, in line: %d\n", file, func, line);
 
     fprintf(stderr, "kod oshibki: %d\n", counter_of_err);
 
     fprintf(stderr, "dvoichnii kod ochibki: ");
 
-    change_of_type(counter_of_err);
+    Change_of_type(counter_of_err);
 
-    fprintf(stderr, "\nSORTEDED DATA:");
+    //fprintf(stderr, "\nSORTEDED DATA:");
 
-    fprintf(stderr, "\n\nDATA:");
-    for (size_t i = 0; i < List->capacity; i++)
+    fprintf(stderr, "\nDATA:");
+    for (size_t i = 0; i < list->capacity; i++)
     {
-        fprintf(stderr,"[%d]%.2lf", i, List->data[i]);
+        fprintf(stderr,"[%d]%.2lf", i, list->data[i]);
     }
+
     fprintf(stderr, "\nNEXT:");
-    for (size_t i = 0; i < List->capacity; i++)
+    for (size_t i = 0; i < list->capacity; i++)
     {
-        fprintf(stderr,"[%d]%d   ", i, List->next[i]);
+        fprintf(stderr,"[%d]%d   ", i, list->next[i]);
     }
+
     fprintf(stderr, "\nPREV:");
-    for (size_t i = 0; i < List->capacity; i++)
+    for (size_t i = 0; i < list->capacity; i++)
     {
-        fprintf(stderr,"[%d]%d   ", i, List->prev[i]);
+        fprintf(stderr,"[%d]%d   ", i, list->prev[i]);
     }
 
     printf("\nFree chain: ");
 
-    int free_pos = List->first_free_pos;
+    int free_pos = Get_first_free_pos(list);
 
-    while (free_pos != 0 && free_pos <= (int)List->capacity)
+    while (free_pos != 0 && free_pos <= (int)list->capacity)
     {
         fprintf(stderr, "%d -> ", free_pos);
-        free_pos = List->next[free_pos];
-        if (free_pos == List->first_free_pos) break;
+        free_pos = list->next[free_pos];
+        if ((unsigned)free_pos == Get_first_free_pos(list)) break;
     }
 
-    fprintf(stderr, "\n\n======:END OF LIST:======\n\n");
+    fprintf(stderr, "\n======:END OF list:======\n\n");
+
+    Create_log_file (list);
 
     return 0;
 }
 
-void change_of_type(int i)
+void Change_of_type(int i)
 {
-    for (int j = 31; j >= 0; j--)
+    for (int j = (sizeof(int)*BITS_IN_BYTE - 1); j >= 0; j--)
         fprintf(stderr, "%d", (i >> j) & 1);
 }
 
-void Create_log_file (my_list_t* List)
+// Геттеры
+size_t Get_first_free_pos(my_list_t* List)
 {
     assert(List);
+    assert(List->data);
 
-    FILE* dot_file = fopen("list_dump.dot", "w");
-
-    assert(dot_file);
-
-    printf("START Writing TO file.....\n");
-
-    fprintf(dot_file,"digraph List{\n");
-
-    fprintf(dot_file, "    node [shape= Mrecord, style=filled, fontname=\"Arial\"];\n");
-
-    fprintf(dot_file, "    edge [fontname=\"Arial\"];\n\n");
-
-    fprintf(dot_file, "    subgraph cluster_main {\n");
-    fprintf(dot_file, "        label=\"Linearized List\";\n");
-    fprintf(dot_file, "        style=filled;\n");
-    fprintf(dot_file, "        fillcolor=lightgray;\n");
-    fprintf(dot_file, "        margin=20;\n\n");
-
-    for (size_t i = 0; i <= List->capacity; i++)
+    if (List->data[0] < 0 || (size_t)List->data[0] > List->capacity)
     {
-
-        printf("START WRITE BLOCKS Writing TO file.....\n");
-
-        const char* fillcolor = "";
-        const char* color = "black";
-
-        if (i == 0)
-        {
-            fillcolor = "#FFB6C1";  // Канарейка
-            color = "darkred";
-        } else if (List->prev[i] == -1)
-        {
-            fillcolor = "#98FB98";  // Свободный узел
-            color = "darkgreen";
-        } else if (i == (unsigned)List->head && i == List->tail)
-        {
-            fillcolor = "#DDA0DD";  // Единственный элемент
-            color = "purple";
-        } else if (i == (unsigned)List->head)
-        {
-            fillcolor = "#FFFACD";  // Голова
-            color = "darkgoldenrod";
-        } else if (i == (unsigned)List->tail)
-        {
-            fillcolor = "#FFDAB9";  // Хвост
-            color = "darkorange";
-        } else
-        {
-            fillcolor = "#E6E6FA";  // Обычный узел
-            color = "navy";
-        }
-
-        fprintf(dot_file, "        node%d [label=\"{{Index: %zu}|{Data: %.2lf}|{Next: %d}|{Prev: %d}}\", "
-                "fillcolor=\"%s\", color=\"%s\", fontcolor=\"%s\"];\n",
-                (int)i, i, List->data[i], List->next[i], List->prev[i], fillcolor, color, color);
-
-        printf("BLOCKS Writing TO file.....\n");
+        fprintf(stderr, "ERROR: invalid first_free_pos value: %lf\n", List->data[0]);
+        return 0;
     }
-
-    fprintf(dot_file, "\n\n");
-
-    fprintf(dot_file, "    // Next connections (main chain)\n");
-
-    for (size_t i = 0; i <= List->capacity; i++)
-    {
-        if (List->next[i] != 0 && List->next[i] != CANAREICA1 &&
-            List->next[i] <= (int)List->capacity && List->prev[List->next[i]] != -1)
-        {
-            printf("NEXT Writing TO file.....\n");
-
-            fprintf(dot_file, "    node%d -> node%d [color=\"#2E8B57\", penwidth=2, weight=2];\n",
-                   (int)i, List->next[i]);
-        }
-    }
-
-    fprintf(dot_file, "    // Free nodes connections\n");
-
-    int free_pos = List->first_free_pos;
-
-    while (free_pos != 0 && free_pos <= (int)List->capacity)
-    {
-        int next_free = List->next[free_pos];
-
-        if (next_free != 0 && next_free <= (int)List->capacity)
-        {
-            printf("FREE Writing TO file.....\n");
-
-            fprintf(dot_file, "    node%d -> node%d [color=\"#32CD32\", style=dashed];\n",
-                   free_pos, next_free);
-        }
-        free_pos = next_free;
-    }
-
-    fprintf(dot_file, "    // Head and Tail pointers\n");
-    fprintf(dot_file, "    head [shape=triangle, color=red, fillcolor=red, style=filled, label=\"HEAD\"];\n");
-    fprintf(dot_file, "    tail [shape=triangle, color=blue, fillcolor=blue, style=filled, label=\"TAIL\"];\n");
-    fprintf(dot_file, "    free_ptr [shape=triangle, color=green, fillcolor=green, style=filled, label=\"FREE\"];\n");
-
-    if (List->head > 0 && List->head <= List->capacity)
-    {
-        printf("HEAD Writing TO file.....\n");
-
-        fprintf(dot_file, "    head -> node%d:<f0> [color=red];\n", List->head);
-    }
-
-    if (List->tail > 0 && List->tail <= List->capacity)
-    {
-        printf("TAIL Writing TO file.....\n");
-
-        fprintf(dot_file, "    tail -> node%d:<f0> [color=red];\n", List->tail);
-    }
-
-    if (List->first_free_pos > 0 && List->first_free_pos <= (int)List->capacity)
-    {
-        fprintf(dot_file, "    free_ptr -> node%d [color=green, penwidth=3, style=dashed];\n", List->first_free_pos);
-    }
-
-    fprintf(dot_file, "}\n");
-    fclose(dot_file);
-
-    printf("End Writing TO file.....\n");
-
-    system("dot -T png list_dump.dot -o images/list_dump4.png");
+    return (size_t)List->data[0];
 }
 
-/*void Create_log_file (my_list_t* List)
+size_t Get_head(my_list_t* List)
 {
-    FILE* log_file = fopen("logFile3.txt", "w");
+    assert(List);
+    assert(List->next);
 
+    if (List->next[0] < 0 || (size_t)List->next[0] > List->capacity)
+    {
+        fprintf(stderr, "ERROR: invalid head value: %d\n", List->next[0]);
+        return 0;
+    }
+
+    return List->next[0];
+}
+
+size_t Get_tail(my_list_t* List)
+{
+    assert(List);
+    assert(List->prev);
+
+    if (List->prev[0] < 0 || (size_t)List->prev[0] > List->capacity)
+    {
+        fprintf(stderr, "ERROR: invalid tail value: %d\n", List->prev[0]);
+        return 0;
+    }
+
+    return List->prev[0];
+}
+
+size_t Get_list_size(my_list_t* List)
+{
+    size_t count_elem = 0;
+    size_t current = Get_head(List);
+    while (current != 0 && Is_valid_node(List, current))
+    {
+        count_elem++;
+        current = List->next[current];
+        if (current == Get_head(List)) break;
+    }
+    return count_elem;
+}
+
+// Сеттеры
+ListErr_t Set_first_free_pos(my_list_t* List, size_t value)
+{
+    assert(List);
+    assert(List->data);
+
+    if (value == 0 || (size_t)value > List->capacity)
+    {
+        fprintf(stderr, "ERROR: trying to set invalid first_free_pos: %d\n", value);
+        return ERORRINDEX;
+    }
+
+    List->data[0] = value;
+
+    return NOERORR;
+}
+
+ListErr_t Set_head(my_list_t* List, size_t value)
+{
+    assert(List);
+    assert(List->next);
+
+    if (value != 0 && ((size_t)value > List->capacity || List->prev[value] == -1))
+    {
+        fprintf(stderr, "ERROR: trying to set invalid head: %d\n", value);
+        return ERORRINDEX;
+    }
+
+    List->next[0] = value;
+    return NOERORR;
+}
+
+ListErr_t Set_tail(my_list_t* List, size_t value)
+{
+    assert(List);
+    assert(List->prev);
+
+    if (value != 0 && ((size_t)value > List->capacity || List->prev[value] == -1))
+    {
+        fprintf(stderr, "ERROR: trying to set invalid tail: %d\n", value);
+        return ERORRINDEX;
+    }
+
+    List->prev[0] = value;
+
+    return NOERORR;
+}
+
+// чеки
+
+bool Is_valid_node(my_list_t* List, size_t node)
+{
+    return (node > 0 && (unsigned)node <= List->capacity && List->prev[node] != -1);
+}
+
+bool Is_free_node(my_list_t* List, size_t node)
+{
+    return (node > 0 && (unsigned)node <= List->capacity && List->prev[node] == -1);
+}
+
+int Check_and_find_first_before_insert (my_list_t* List, int Index, size_t* First_free)
+{
     #ifdef DEBUG
-        assert(List && log_file);
+        verificator(List, __FILE__, __func__, __LINE__);
     #endif
 
-    fprintf(log_file, "digraph list {\n");
-    fprintf(log_file, "rankdir = LR;");
-
-    for (size_t Index = 0; Index < List->capacity - 1; Index++)
+    if (Index < 0 || (unsigned)Index > List->capacity)
     {
-        if (List->prev[Index] == -1)
-        {
-            fprintf(log_file,
-                    "node%d [shape=Mrecord; style = filled; fillcolor = \"%s\"; color = \"%s\"; label = \"{EMPTY | { data = %.0lf | next = %d | prev = %d } }\"]\n",
-                    Index, "#e49217d0", "#5b919d78", List->data[Index], List->next[Index], List->prev[Index]);
-        }
-        else if (List->prev[Index] != CANAREICA1 && List->prev[Index] != -1)
-        {
-            fprintf(log_file,
-                    "node%d [shape=Mrecord; style = filled; fillcolor = \"%s\"; color = \"%s\"; label = \"{USED | { data = %.0lf | next = %d | prev = %d } }\"]\n",
-                    Index, "#77e417d0", "#942323d0", List->data[Index], List->next[Index], List->prev[Index]);
-        }
-        else
-        {
-            fprintf(log_file,
-                    "node%d [shape=Mrecord; style = filled; fillcolor = \"%s\"; color = \"%s\"; label = \"{CANARY | { canary_data = %.0lf | canary_next = %d | canary_prev = %d } }\"]\n",
-                    Index, "#aeaeaef4", "#892394d0", List->data[0], List->next[0], List->prev[0]);
-        }
-    }
-    for (size_t Index = 0; Index < List->capacity - 1; Index++) // для ровной горизонтальной распечатки
-    {
-        fprintf(log_file, "node%d->node%d[color = \"transparent\"];\n", Index, Index + 1);
-    }
-    for (index_t Index = 1; Index != 0; Index = List->next[Index])
-    {
-        if (List->next[Index] != 0)
-        {
-            fprintf(log_file, "node%d->node%d[label = \"next\", color = \"green\"];\n",             Index, List->next[Index]);
-            fprintf(log_file, "node%d->node%d[label = \"prev\", style=dotted, color = \"red\"];\n", List->next[Index], Index);
-        }
-    }
-    for (index_t Index = List->first_free_pos; Index != 0; Index = List->next[Index])
-    {
-        if (List->next[Index] != 0)
-        {
-            fprintf(log_file, "node%d->node%d[label = \"free\", color = \"lightgray\"];\n", Index, List->next[Index]);
-        }
+        fprintf(stderr,"ERORR: bad index\n");
+        return ERORRINDEX;
     }
 
-    fprintf(log_file, "}\n"); // end of graph
+    if (Index != 0 && Is_free_node(List, Index))
+    {
+        fprintf(stderr, "ERORR: cannot insert after free node\n");
+        return ERORRINDEX;
+    }
 
-    #ifdef DEBUG
-        assert(List);
-    #endif
+    *First_free = Get_first_free_pos(List);
 
-    fclose(log_file);
+    if (*First_free == 0)
+    {
+        fprintf(stderr, "ERORR: no free space. first_free_pos = 0\n");
+        return ERORRINDEX;
+    }
 
-    system("dot -Tpng list_dump.dot -o list_dump2.png");
-
-    return;
-}*/
+    return NOERORR;
+}

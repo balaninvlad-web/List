@@ -1,111 +1,166 @@
 #include "list_functions.h"
+#include "create_log_file.h"
 
-ListErr_t Insert_at (my_list_t* List, int Index, int Value)
+const int DUMMY_ELEMENT_POS = 0;
+
+ListErr_t Insert_after (my_list_t* list, int index, int value)
 {
-    if (Index < 0 || (unsigned)Index > List->capacity)
+    size_t first_free = DUMMY_ELEMENT_POS;
+
+    Check_and_find_first_before_insert (list, index, &first_free); // TODO все с маленькой и тут find напипши да
+
+    size_t new_node = first_free;
+
+    if (Set_first_free_pos(list, list->next[new_node]) != NOERORR)
     {
-        fprintf(stderr,"ERORR: bad index\n");
         return ERORRINDEX;
     }
 
-    if (List->first_free_pos == 0)
+    list->data[new_node] = value;
+
+    list->next[new_node] = list->next[index];
+
+    list->prev[new_node] = index;
+
+    if (list->next[index] != DUMMY_ELEMENT_POS)
     {
-        fprintf(stderr, "ERORR: no free space. first_free_pos = 0\n");
-        return ERORRINDEX;
-    }
-
-    #ifdef DEBUG
-        verificator(List, __FILE__, __func__, __LINE__);
-    #endif
-
-    index_t New_node = List->first_free_pos;
-
-    if (New_node == 0)
-    {
-        fprintf(stderr, "ERORR: no free space\n");
-        return ERORRINDEX;
-    }
-
-    List->first_free_pos = List->next[New_node];
-
-    if (Index == 0)
-    {
-        List->next[New_node] = List->head;
-
-        List->prev[New_node] = 0;
-
-        if (List->head != 0)
-        {
-            List->prev[List->head] = New_node;
-        }
-        else
-        {
-            List->tail = New_node;
-        }
-
-        List->head = New_node;
+        list->prev[list->next[index]] = new_node;
     }
     else
     {
-        List->next[New_node] = List->next[Index];
-
-        List->prev[New_node] = Index;
-
-        if (List->next[Index] != 0)
+        if (Set_tail(list, new_node) != NOERORR)
         {
-            List->prev[List->next[Index]] = New_node;
+            return ERORRINDEX;
         }
-        else
-        {
-            List->tail = New_node;
-        }
-
-        List->next[Index] = New_node;
     }
 
-    List->data[New_node] = Value;
+    list->next[index] = new_node;
 
-    List->prev[New_node] = (List->prev[New_node] == -1) ? Index : List->prev[New_node];
+    if (index == DUMMY_ELEMENT_POS)
+    {
+        if (Set_head(list, new_node) != NOERORR)
+        {
+            return ERORRINDEX;
+        }
+    }
 
-    List->Size++;
+    list->size++;
 
     #ifdef DEBUG
-        verificator(List, __FILE__, __func__, __LINE__);
+        verificator(list, __FILE__, __func__, __LINE__);
     #endif
 
     return NOERORR;
 }
 
-ListErr_t Delite_at(my_list_t* List, int Index)
+ListErr_t Insert_before (my_list_t* list, int index, int value)
 {
+    size_t first_free = DUMMY_ELEMENT_POS;
+
+    if (Is_free_node(list, index))
+    {
+        fprintf(stderr, "ERORR: cannot insert before free node\n");
+        return ERORRINDEX;
+    }
+
+    Check_and_find_first_before_insert (list, index, &first_free);
+
+    size_t new_node = first_free;
+
+    if (Set_first_free_pos(list, list->next[new_node]) != NOERORR)
+    {
+        return ERORRINDEX;
+    }
+
+    list->data[new_node] = value;
+
+    list->next[new_node] = index;
+
+    list->prev[new_node] = list->next[index];
+
+    if(list->next[index] != DUMMY_ELEMENT_POS)
+    {
+        list->next[list->prev[index]] = new_node;
+    }
+    else
+    {
+        if (Set_tail(list, new_node) != NOERORR)
+        {
+            return ERORRINDEX;
+        }
+    }
+
+    list->prev[index] = new_node;
+
+    list->size++;
+
     #ifdef DEBUG
-        verificator(List, __FILE__, __func__, __LINE__);
+        verificator(list, __FILE__, __func__, __LINE__);
     #endif
 
-    if (Index < 0 || (unsigned)Index > List->capacity)
+    return NOERORR;
+}
+
+ListErr_t Delite_at(my_list_t* list, int index)
+{
+    #ifdef DEBUG
+        verificator(list, __FILE__, __func__, __LINE__);
+    #endif
+
+    if (index < DUMMY_ELEMENT_POS || (unsigned)index > list->capacity)
     {
         fprintf(stderr, "ERORR: bad index\n");
         return ERORRINDEX;
     }
 
-    int Previous_Index = List->prev[Index];
+    if (index == DUMMY_ELEMENT_POS || Is_free_node(list, index))
+    {
+        fprintf(stderr, "ERORR: cannot delete free node or zero node\n");
+        return ERORRINDEX;
+    }
 
-    int Next_Index = List->next[Index];
+    int previous_index = list->prev[index];
 
-    List->next[Previous_Index] = Next_Index;
+    int next_index = list->next[index];
 
-    List->prev[Next_Index] = Previous_Index;
+    list->next[previous_index] = next_index;
 
-    List->next[Index] = List->first_free_pos;
+    list->prev[next_index] = previous_index;
 
-    List->prev[Index] = -1;
+    if (previous_index != DUMMY_ELEMENT_POS)
+    {
+        list->next[previous_index] = next_index;
+    }
+    else
+    {
+        Set_head(list, next_index);
+    }
 
-    List->data[Index] = 0;
+    if (next_index != DUMMY_ELEMENT_POS)
+    {
+        list->prev[next_index] = previous_index;
+    }
+    else
+    {
+        Set_tail(list, previous_index);
+    }
+
+    list->next[index] = Get_first_free_pos(list);
+
+    list->prev[index] = -1;
+
+    list->data[index] = DUMMY_ELEMENT_POS;
+
+    Set_first_free_pos(list, index);
+
+    list->size--;
 
     #ifdef DEBUG
-        verificator(List, __FILE__, __func__, __LINE__);
+        verificator(list, __FILE__, __func__, __LINE__);
     #endif
 
     return NOERORR;
 }
+
+
 
