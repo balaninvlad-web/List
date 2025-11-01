@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang='ru'>
+<head>
+<meta charset='UTF-8'>
+<title>List Dumps</title>
+<style>
+body { background-color: #001f29; color: #ffffff; }
+table { border-collapse: collapse; margin: 10px; }
+th, td { border: 1px solid #0077a3; padding: 5px; }
+th { background-color: #00415a; }
+img { max-width: 100%; height: auto; margin: 10px; }
+.dump { border: 2px solid #0099cc; padding: 15px; margin: 10px; }
+h1 { color: #00ccff; }
+h2 { color: #00b8e6; }
+h3 { color: #66d9ff; }
+pre { color: #b3ecff; background-color: #001a21; padding: 10px; }
+</style>
+</head>
+<body>
+<h1 style='color: red;'>ALL LIST DUMPS</h1>
+<div class='dump'>
+<h2>Dump 1 Called from: <font color=white>ListCtor</font></h2>
+<p><b>Head:</b> 0, <b>Tail:</b> 0, <b>Free:</b> 1, <b>Size:</b> 0, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>1.00</td><td>0</td><td>0</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>0.00</td><td>2</td><td>-1</td><td>FREE</td></tr>
+<tr><td>2</td><td>0.00</td><td>3</td><td>-1</td><td>FREE</td></tr>
+<tr><td>3</td><td>0.00</td><td>4</td><td>-1</td><td>FREE</td></tr>
+<tr><td>4</td><td>0.00</td><td>5</td><td>-1</td><td>FREE</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_1.png' alt='Graph 1' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD →  → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 2 Called from: <font color=white>main</font></h2>
+<p><b>Head:</b> 0, <b>Tail:</b> 0, <b>Free:</b> 1, <b>Size:</b> 0, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>1.00</td><td>0</td><td>0</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>0.00</td><td>2</td><td>-1</td><td>FREE</td></tr>
+<tr><td>2</td><td>0.00</td><td>3</td><td>-1</td><td>FREE</td></tr>
+<tr><td>3</td><td>0.00</td><td>4</td><td>-1</td><td>FREE</td></tr>
+<tr><td>4</td><td>0.00</td><td>5</td><td>-1</td><td>FREE</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_2.png' alt='Graph 2' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD →  → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 3 Called from: <font color=white>main</font></h2>
+<p><b>Head:</b> 0, <b>Tail:</b> 0, <b>Free:</b> 1, <b>Size:</b> 0, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>1.00</td><td>0</td><td>0</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>0.00</td><td>2</td><td>-1</td><td>FREE</td></tr>
+<tr><td>2</td><td>0.00</td><td>3</td><td>-1</td><td>FREE</td></tr>
+<tr><td>3</td><td>0.00</td><td>4</td><td>-1</td><td>FREE</td></tr>
+<tr><td>4</td><td>0.00</td><td>5</td><td>-1</td><td>FREE</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_3.png' alt='Graph 3' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD →  → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 4 Called from: <font color=white>Check_and_find_first_before_insert</font></h2>
+<p><b>Head:</b> 0, <b>Tail:</b> 0, <b>Free:</b> 1, <b>Size:</b> 0, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>1.00</td><td>0</td><td>0</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>0.00</td><td>2</td><td>-1</td><td>FREE</td></tr>
+<tr><td>2</td><td>0.00</td><td>3</td><td>-1</td><td>FREE</td></tr>
+<tr><td>3</td><td>0.00</td><td>4</td><td>-1</td><td>FREE</td></tr>
+<tr><td>4</td><td>0.00</td><td>5</td><td>-1</td><td>FREE</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_4.png' alt='Graph 4' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD →  → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 5 Called from: <font color=white>Insert_after</font></h2>
+<p><b>Head:</b> 1, <b>Tail:</b> 1, <b>Free:</b> 2, <b>Size:</b> 1, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>2.00</td><td>1</td><td>1</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>0</td><td>0</td><td>USED</td></tr>
+<tr><td>2</td><td>0.00</td><td>3</td><td>-1</td><td>FREE</td></tr>
+<tr><td>3</td><td>0.00</td><td>4</td><td>-1</td><td>FREE</td></tr>
+<tr><td>4</td><td>0.00</td><td>5</td><td>-1</td><td>FREE</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_5.png' alt='Graph 5' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [1] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 6 Called from: <font color=white>main</font></h2>
+<p><b>Head:</b> 1, <b>Tail:</b> 1, <b>Free:</b> 2, <b>Size:</b> 1, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>2.00</td><td>1</td><td>1</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>0</td><td>0</td><td>USED</td></tr>
+<tr><td>2</td><td>0.00</td><td>3</td><td>-1</td><td>FREE</td></tr>
+<tr><td>3</td><td>0.00</td><td>4</td><td>-1</td><td>FREE</td></tr>
+<tr><td>4</td><td>0.00</td><td>5</td><td>-1</td><td>FREE</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_6.png' alt='Graph 6' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [1] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 7 Called from: <font color=white>Check_and_find_first_before_insert</font></h2>
+<p><b>Head:</b> 1, <b>Tail:</b> 1, <b>Free:</b> 2, <b>Size:</b> 1, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>2.00</td><td>1</td><td>1</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>0</td><td>0</td><td>USED</td></tr>
+<tr><td>2</td><td>0.00</td><td>3</td><td>-1</td><td>FREE</td></tr>
+<tr><td>3</td><td>0.00</td><td>4</td><td>-1</td><td>FREE</td></tr>
+<tr><td>4</td><td>0.00</td><td>5</td><td>-1</td><td>FREE</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_7.png' alt='Graph 7' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [1] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 8 Called from: <font color=white>main</font></h2>
+<p><b>Head:</b> 2, <b>Tail:</b> 1, <b>Free:</b> 3, <b>Size:</b> 2, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>3.00</td><td>2</td><td>1</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>2</td><td>2.00</td><td>1</td><td>0</td><td>USED</td></tr>
+<tr><td>3</td><td>0.00</td><td>4</td><td>-1</td><td>FREE</td></tr>
+<tr><td>4</td><td>0.00</td><td>5</td><td>-1</td><td>FREE</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_8.png' alt='Graph 8' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [2] → [1] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 9 Called from: <font color=white>main</font></h2>
+<p><b>Head:</b> 2, <b>Tail:</b> 3, <b>Free:</b> 4, <b>Size:</b> 3, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>4.00</td><td>2</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>3</td><td>2</td><td>USED</td></tr>
+<tr><td>2</td><td>2.00</td><td>1</td><td>0</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>1</td><td>USED</td></tr>
+<tr><td>4</td><td>0.00</td><td>5</td><td>-1</td><td>FREE</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_9.png' alt='Graph 9' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [2] → [1] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 10 Called from: <font color=white>Insert_before</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>3</td><td>2</td><td>USED</td></tr>
+<tr><td>2</td><td>2.00</td><td>1</td><td>4</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>1</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>2</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_10.png' alt='Graph 10' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [2] → [1] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 11 Called from: <font color=white>main</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>3</td><td>2</td><td>USED</td></tr>
+<tr><td>2</td><td>2.00</td><td>1</td><td>4</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>1</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>2</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_11.png' alt='Graph 11' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [2] → [1] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 12 Called from: <font color=white>Delite_at</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>3</td><td>2</td><td>USED</td></tr>
+<tr><td>2</td><td>2.00</td><td>1</td><td>4</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>1</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>2</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_12.png' alt='Graph 12' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [2] → [1] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 13 Called from: <font color=white>Delite_at</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 2, <b>Size:</b> 3, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>2.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>3</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>0.00</td><td>5</td><td>-1</td><td>FREE</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>1</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_13.png' alt='Graph 13' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 14 Called from: <font color=white>main</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 2, <b>Size:</b> 3, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>2.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>3</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>0.00</td><td>5</td><td>-1</td><td>FREE</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>1</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_14.png' alt='Graph 14' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 15 Called from: <font color=white>Check_and_find_first_before_insert</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 2, <b>Size:</b> 3, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>2.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>3</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>0.00</td><td>5</td><td>-1</td><td>FREE</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>1</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_15.png' alt='Graph 15' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 16 Called from: <font color=white>Insert_after</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>2</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>5.00</td><td>3</td><td>1</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_16.png' alt='Graph 16' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [2] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 17 Called from: <font color=white>main</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>2</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>5.00</td><td>3</td><td>1</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_17.png' alt='Graph 17' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [2] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 18 Called from: <font color=white>Check_and_find_first_before_insert</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>2</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>5.00</td><td>3</td><td>1</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_18.png' alt='Graph 18' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [2] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 19 Called from: <font color=white>main</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>2</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>5.00</td><td>3</td><td>1</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_19.png' alt='Graph 19' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [2] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 20 Called from: <font color=white>Delite_at</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>2</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>5.00</td><td>3</td><td>1</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_20.png' alt='Graph 20' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [2] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 21 Called from: <font color=white>Delite_at</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 2, <b>Size:</b> 3, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>2.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>3</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>0.00</td><td>5</td><td>-1</td><td>FREE</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>1</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_21.png' alt='Graph 21' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 22 Called from: <font color=white>main</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 2, <b>Size:</b> 3, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>2.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>3</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>0.00</td><td>5</td><td>-1</td><td>FREE</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>1</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_22.png' alt='Graph 22' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 23 Called from: <font color=white>Check_and_find_first_before_insert</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 2, <b>Size:</b> 3, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>2.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>3</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>0.00</td><td>5</td><td>-1</td><td>FREE</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>1</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_23.png' alt='Graph 23' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 24 Called from: <font color=white>Insert_after</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>2</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>1.00</td><td>3</td><td>1</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_24.png' alt='Graph 24' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [2] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 25 Called from: <font color=white>main</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>2</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>1.00</td><td>3</td><td>1</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_25.png' alt='Graph 25' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [2] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 26 Called from: <font color=white>Check_and_find_first_before_insert</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>2</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>1.00</td><td>3</td><td>1</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_26.png' alt='Graph 26' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [2] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 27 Called from: <font color=white>main</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>2</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>1.00</td><td>3</td><td>1</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_27.png' alt='Graph 27' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [2] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 28 Called from: <font color=white>Check_and_find_first_before_insert</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>2</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>1.00</td><td>3</td><td>1</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_28.png' alt='Graph 28' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [2] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 29 Called from: <font color=white>main</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>2</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>1.00</td><td>3</td><td>1</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_29.png' alt='Graph 29' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [2] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 30 Called from: <font color=white>Check_and_find_first_before_insert</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>2</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>1.00</td><td>3</td><td>1</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_30.png' alt='Graph 30' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [2] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 31 Called from: <font color=white>main</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>2</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>1.00</td><td>3</td><td>1</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_31.png' alt='Graph 31' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [2] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 32 Called from: <font color=white>main</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>2</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>1.00</td><td>3</td><td>1</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_32.png' alt='Graph 32' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [2] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 33 Called from: <font color=white>main</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>2</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>1.00</td><td>3</td><td>1</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_33.png' alt='Graph 33' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [2] → [3] → TAIL
+</pre>
+</div>
+<div class='dump'>
+<h2>Dump 34 Called from: <font color=white>ListDtor</font></h2>
+<p><b>Head:</b> 4, <b>Tail:</b> 3, <b>Free:</b> 5, <b>Size:</b> 4, <b>Capacity:</b> 10</p>
+<table border='1' style='border-collapse: collapse;'>
+<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>
+<tr><td>0</td><td>5.00</td><td>4</td><td>3</td><td>SERVICE</td></tr>
+<tr><td>1</td><td>1.00</td><td>2</td><td>4</td><td>USED</td></tr>
+<tr><td>2</td><td>1.00</td><td>3</td><td>1</td><td>USED</td></tr>
+<tr><td>3</td><td>3.00</td><td>0</td><td>2</td><td>USED</td></tr>
+<tr><td>4</td><td>4.00</td><td>1</td><td>1</td><td>USED</td></tr>
+<tr><td>5</td><td>0.00</td><td>3000</td><td>-1</td><td>FREE</td></tr>
+<tr><td>6</td><td>0.00</td><td>7</td><td>-1</td><td>FREE</td></tr>
+<tr><td>7</td><td>0.00</td><td>8</td><td>-1</td><td>FREE</td></tr>
+<tr><td>8</td><td>0.00</td><td>9</td><td>-1</td><td>FREE</td></tr>
+<tr><td>9</td><td>0.00</td><td>10</td><td>-1</td><td>FREE</td></tr>
+<tr><td>10</td><td>0.00</td><td>0</td><td>-1</td><td>FREE</td></tr>
+</table>
+<h3>Graph Visualization</h3>
+<img src='imagesDump/graph_34.png' alt='Graph 34' width='1500'>
+<h3>Text Diagram:</h3>
+<pre>
+HEAD → [4] → [1] → [2] → [3] → TAIL
+</pre>
+</div>
+</body></html>

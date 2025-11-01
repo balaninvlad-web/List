@@ -7,6 +7,8 @@ int main ()//int argc, char* argv[]
 
     ListCtor (&List, 10);
 
+    Make_html_file(&List, __func__);
+
     #ifdef DEBUG
         verificator (&List, __FILE__, __func__ ,__LINE__);
     #endif
@@ -15,7 +17,7 @@ int main ()//int argc, char* argv[]
 
     ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
 
-    Insert_after (&List, 1, 2);
+    Insert_after (&List, 0, 2);
 
     ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
 
@@ -23,7 +25,7 @@ int main ()//int argc, char* argv[]
 
     ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
 
-    Insert_before (&List, 1, 4);
+    Insert_before (&List, 2, 4);
 
     ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
 
@@ -43,7 +45,7 @@ int main ()//int argc, char* argv[]
 
     ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
 
-    Insert_after (&List, 0, 1);
+    Insert_after (&List, 1, 1);
 
     ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
 
@@ -55,7 +57,7 @@ int main ()//int argc, char* argv[]
 
     ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
 
-    Insert_before (&List, 1, 4);
+    Insert_before (&List, 2, 4);
 
     ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
 
@@ -65,7 +67,7 @@ int main ()//int argc, char* argv[]
         ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
     #endif
 
-    Create_log_file (&List);
+    Create_log_file (&List, "list_dump.dot");
 
     ListDtor (&List);
 }

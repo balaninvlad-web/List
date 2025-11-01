@@ -9,7 +9,7 @@
 
 extern const int MAX_COMMAND_LENGTH;
 
-void Create_log_file (my_list_t* list);
+void Create_log_file (my_list_t* list, const char* filename);
 
 void Create_head_log_file (my_list_t* list, FILE* dot_file);
 void Create_graph_node (my_list_t* list, FILE* dot_file);
