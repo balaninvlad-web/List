@@ -115,7 +115,6 @@ ListErr_t verificator (my_list_t* list, const char* file, const char* func, int 
     {
         counter_of_err |= ERORRPREVNULL;
     }
-
     if (list->size != Get_list_size(list))
     {
         counter_of_err |= ERORRSIZE; // 7 ошибка
@@ -180,8 +179,6 @@ ListErr_t ListDump (my_list_t* list, int counter_of_err, const char* file, const
     fprintf(stderr, "dvoichnii kod ochibki: ");
 
     Change_of_type(counter_of_err);
-
-    //fprintf(stderr, "\nSORTEDED DATA:");
 
     fprintf(stderr, "\nDATA:");
     for (size_t i = 0; i <= list->capacity; i++)
@@ -477,7 +474,6 @@ void Make_html_file(my_list_t* list, const char* func)
     static int dump_counter = 1;
 
     int result = 0;
-    int actual_capacity = list->capacity;
 
     if (dump_counter == 1)
     {
@@ -494,40 +490,7 @@ void Make_html_file(my_list_t* list, const char* func)
 
     if (html_file == NULL)
     {
-        printf("Creating HTML file...\n");
-        html_file = fopen("All_dumps.html", "w");
-        if (html_file == NULL)
-        {
-            printf("ERROR: Cannot create HTML file\n");
-            return;
-        }
-        fprintf(html_file, "<!DOCTYPE html>\n");
-        fprintf(html_file, "<html lang='ru'>\n");
-        fprintf(html_file, "<head>\n");
-        fprintf(html_file, "<meta charset='UTF-8'>\n");
-        fprintf(html_file, "<title>List Dumps</title>\n");
-        fprintf(html_file, "<style>\n");
-        /* Основные цвета */
-        fprintf(html_file, "body { background-color: #001f29; color: #ffffff; }\n");
-        /* Таблица */
-        fprintf(html_file, "table { border-collapse: collapse; margin: 10px; }\n");
-        fprintf(html_file, "th, td { border: 1px solid #0077a3; padding: 5px; }\n");
-        fprintf(html_file, "th { background-color: #00415a; }\n");
-        /* Картинки */
-        fprintf(html_file, "img { max-width: 100%%; height: auto; margin: 10px; }\n");
-        /* Блоки дампов */
-        fprintf(html_file, ".dump { border: 2px solid #0099cc; padding: 15px; margin: 10px; }\n");
-        /* Заголовки */
-        fprintf(html_file, "h1 { color: #00ccff; }\n");
-        fprintf(html_file, "h2 { color: #00b8e6; }\n");
-        fprintf(html_file, "h3 { color: #66d9ff; }\n");
-        /* Текстовая диаграмма */
-        fprintf(html_file, "pre { color: #b3ecff; background-color: #001a21; padding: 10px; }\n");
-        fprintf(html_file, "</style>\n");
-        fprintf(html_file, "</head>\n");
-        fprintf(html_file, "<body>\n");
-        fprintf(html_file, "<h1 style='color: red;'>ALL LIST DUMPS</h1>\n");
-        printf("HTML file created successfully\n");
+        Create_head_html (&html_file);
     }
 
     fprintf(html_file, "<div class='dump'>\n");
@@ -560,8 +523,67 @@ void Make_html_file(my_list_t* list, const char* func)
 
     remove(dot_filename);
 
-    //char* graph_filename = Create_log_file(list);
+    Create_table (html_file, list);
 
+    fprintf(html_file, "<h3>Graph Visualization</h3>\n");
+
+    fprintf(html_file, "<img src='imagesDump/%s' alt='Graph %d' width='1500'>\n", graph_filename, dump_counter);
+
+    Create_text_diagram (html_file, list);
+
+    fprintf(html_file, "</pre>\n");
+    fprintf(html_file, "</div>\n");
+
+    fflush(html_file);
+    printf("HTML dump #%d completed\n", dump_counter);
+
+    dump_counter++;
+}
+
+void Create_head_html (FILE** html_file)
+{
+    printf("Creating HTML file...\n");
+    *html_file = fopen("All_dumps.html", "w");
+
+    //html_file = *html_file;
+
+    if (html_file == NULL)
+    {
+        printf("ERROR: Cannot create HTML file\n");
+        return;
+    }
+
+    fprintf(*html_file, "<!DOCTYPE html>\n");
+    fprintf(*html_file, "<html lang='ru'>\n");
+    fprintf(*html_file, "<head>\n");
+    fprintf(*html_file, "<meta charset='UTF-8'>\n");
+    fprintf(*html_file, "<title>List Dumps</title>\n");
+    fprintf(*html_file, "<style>\n");
+    /* Основные цвета */
+    fprintf(*html_file, "body { background-color: #001f29; color: #ffffff; }\n");
+    /* Таблица */
+    fprintf(*html_file, "table { border-collapse: collapse; margin: 10px; }\n");
+    fprintf(*html_file, "th, td { border: 1px solid #0077a3; padding: 5px; }\n");
+    fprintf(*html_file, "th { background-color: #00415a; }\n");
+    /* Картинки */
+    fprintf(*html_file, "img { max-width: 100%%; height: auto; margin: 10px; }\n");
+    /* Блоки дампов */
+    fprintf(*html_file, ".dump { border: 2px solid #0099cc; padding: 15px; margin: 10px; }\n");
+    /* Заголовки */
+    fprintf(*html_file, "h1 { color: #00ccff; }\n");
+    fprintf(*html_file, "h2 { color: #00b8e6; }\n");
+    fprintf(*html_file, "h3 { color: #66d9ff; }\n");
+    /* Текстовая диаграмма */
+    fprintf(*html_file, "pre { color: #b3ecff; background-color: #001a21; padding: 10px; }\n");
+    fprintf(*html_file, "</style>\n");
+    fprintf(*html_file, "</head>\n");
+    fprintf(*html_file, "<body>\n");
+    fprintf(*html_file, "<h1 style='color: red;'>ALL LIST DUMPS</h1>\n");
+    printf("HTML file created successfully\n");
+}
+
+void Create_table (FILE* html_file, my_list_t* list)
+{
     fprintf(html_file, "<p><b>Head:</b> %d, <b>Tail:</b> %d, <b>Free:</b> %d, <b>Size:</b> %d, <b>Capacity:</b> %d</p>\n",
             Get_head(list), Get_tail(list), Get_first_free_pos(list), list->size, list->capacity);
 
@@ -580,10 +602,11 @@ void Make_html_file(my_list_t* list, const char* func)
     }
 
     fprintf(html_file, "</table>\n");
+}
 
-    fprintf(html_file, "<h3>Graph Visualization</h3>\n");
-
-    fprintf(html_file, "<img src='imagesDump/%s' alt='Graph %d' width='1500'>\n", graph_filename, dump_counter);
+void Create_text_diagram (FILE* html_file, my_list_t* list)
+{
+    int actual_capacity = list->capacity;
 
     fprintf(html_file, "<h3>Text Diagram:</h3>\n");
     fprintf(html_file, "<pre>\n");
@@ -609,12 +632,4 @@ void Make_html_file(my_list_t* list, const char* func)
         }
         fprintf(html_file, " → TAIL\n");
     }
-
-    fprintf(html_file, "</pre>\n");
-    fprintf(html_file, "</div>\n");
-
-    fflush(html_file);
-    printf("HTML dump #%d completed\n", dump_counter);
-
-    dump_counter++;
 }
