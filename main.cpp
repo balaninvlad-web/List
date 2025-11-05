@@ -1,28 +1,73 @@
-#include "list_on_signs_func.h"
+#include "list_functions.h"
+#include "create_log_file.h"
 
-int main ()
+int main ()//int argc, char* argv[]
 {
-    LinkedList* List = ListCtor();
+    my_list_t List ={};
 
-    Node* node1 = Insert_after_node(List, NULL, 10);
+    ListCtor (&List, 10);
 
-    Node* node2 = Insert_after_node(List, node1, 20);
+    Create_dump_files(&List, __func__);
 
-    Node* node3 = Insert_after_node(List, NULL, 30);
+    #ifdef DEBUG
+        verificator (&List, __FILE__, __func__ ,__LINE__);
+    #endif
 
-    PrintList(List);
+    Insert_after (&List, 0, 1);
 
-    DeleteNode (List, node1);
+    ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
 
-    PrintList(List);
+    Insert_after (&List, 0, 2);
 
-    DeleteNode (List, GetHead(List));
+    ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
 
-    PrintList(List);
+    Insert_after (&List, 1, 3);
 
-    DeleteNode (List, GetTail(List));
+    ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
 
-    PrintList(List);
+    Insert_before (&List, 2, 4);
 
-    ListDtor(List);
+    ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
+
+    Delite_at (&List, 2);
+
+    ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
+
+    Insert_after (&List, 1, 5);
+
+    ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
+
+    Insert_after (&List, 2, 6);
+
+    ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
+
+    Delite_at (&List, 2);
+
+    ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
+
+    Insert_after (&List, 1, 1);
+
+    ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
+
+    Insert_after (&List, 1, 2);
+
+    ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
+
+    Insert_after (&List, 1, 3);
+
+    ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
+
+    Insert_before (&List, 2, 4);
+
+    ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
+
+    #ifdef DEBUG
+        verificator (&List, __FILE__, __func__ ,__LINE__);
+
+        ListDump(&List, 0, __FILE__, __func__ ,__LINE__);
+    #endif
+
+    Create_log_file (&List, "list_dump.dot");
+
+    ListDtor (&List);
 }

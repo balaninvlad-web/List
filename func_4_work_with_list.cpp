@@ -1,13 +1,13 @@
 #include "list_functions.h"
 #include "create_log_file.h"
 
-const int DUMMY_ELEMENT_POS = 0;
+const int FREE_VALUE_PREV = -1;
 
 ListErr_t Insert_after (my_list_t* list, int index, int value)
 {
     size_t first_free = DUMMY_ELEMENT_POS;
 
-    Check_and_find_first_before_insert (list, index, &first_free); // TODO все с маленькой и тут find напипши да
+    Check_and_find_first_before_insert (list, index, &first_free);
 
     size_t new_node = first_free;
 
@@ -76,7 +76,7 @@ ListErr_t Insert_before (my_list_t* list, int index, int value)
 
     list->next[new_node] = index;
 
-    list->prev[new_node] = list->next[index];
+    list->prev[new_node] = list->prev[index];
 
     if(list->next[index] != DUMMY_ELEMENT_POS)
     {
@@ -147,7 +147,7 @@ ListErr_t Delite_at(my_list_t* list, int index)
 
     list->next[index] = Get_first_free_pos(list);
 
-    list->prev[index] = -1;
+    list->prev[index] = FREE_VALUE_PREV;
 
     list->data[index] = DUMMY_ELEMENT_POS;
 

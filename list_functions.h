@@ -16,6 +16,7 @@ typedef struct
     data_t* data;
     next_t* next;
     prev_t* prev;
+    size_t  first_free_pos;
     size_t  capacity;
     size_t  size;
 } my_list_t;
@@ -43,7 +44,9 @@ enum nameOFerr {
 
 extern const int START_OF_DATA;
 extern const int BITS_IN_BYTE;
-extern const int DUMMY_ELEMENT_POS;
+extern const int FREE_VALUE_PREV;
+
+const int DUMMY_ELEMENT_POS = 0;
 
 ListErr_t ListCtor (my_list_t* List, int Capacity);
 ListErr_t ListDtor (my_list_t* List);
@@ -51,7 +54,7 @@ ListErr_t Realocation_list (my_list_t* list);
 
 ListErr_t verificator (my_list_t* List, const char* file, const char* func, int line);
 ListErr_t ListDump (my_list_t* List, int i, const char* file, const char* func, int line);
-void Make_html_file(my_list_t* list, const char* func);
+
 
 void Change_of_type(int i);
 

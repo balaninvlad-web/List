@@ -18,7 +18,7 @@ ListErr_t ListCtor (my_list_t* list, int capacity)
     {
         return ERORRDATANULL;
     }
-    // TODO сделать в функцию когда напишу реалокацию
+
     for (size_t i = START_OF_DATA; i < list->capacity; i++)
     {
         if(i == list->capacity)
@@ -32,10 +32,10 @@ ListErr_t ListCtor (my_list_t* list, int capacity)
         list->prev[i] = -1;
     }
 
-    list->data[0] = 1;
+    list->first_free_pos = 1;
 
+    list->data[0] = 0;
     list->next[0] = 0;
-
     list->prev[0] = 0;
 
     Set_first_free_pos(list, 1);
@@ -99,70 +99,72 @@ ListErr_t verificator (my_list_t* list, const char* file, const char* func, int 
 
     list->next[5] = 3000;
 
-    if (list == NULL) // 1 ошибка
+    if (list == NULL) // 1 ������
     {
         counter_of_err |= ERORRLISTNULL;
     }
-    if (list->data == NULL) // 2 ошибка
+    if (list->data == NULL) // 2 ������
     {
         counter_of_err |= ERORRDATANULL;
     }
-    if (list->next == NULL) // 3 ошибка
+    if (list->next == NULL) // 3 ������
     {
         counter_of_err |= ERORRNEXTNULL;
     }
-    if (list->prev == NULL) // 4 ошибка
+    if (list->prev == NULL) // 4 ������
     {
         counter_of_err |= ERORRPREVNULL;
     }
     if (list->size != Get_list_size(list))
     {
-        counter_of_err |= ERORRSIZE; // 7 ошибка
+        counter_of_err |= ERORRSIZE; // 7 ������
     }
     if (Get_head(list) == Get_tail(list))
     {
-        counter_of_err |= ERORRSIZEZERO; // 8 ошибка
+        counter_of_err |= ERORRSIZEZERO; // 8 ������
     }
     if (Has_cycles(list))
     {
-        counter_of_err |= ERORRCYCLE;   // 9 ошибка
+        counter_of_err |= ERORRCYCLE;   // 9 ������
     }
-    if (Get_first_free_pos == 0)
+    if (list->first_free_pos == 0)
     {
-        counter_of_err |= ERORRFIRSTFREEPOS;    // 10 ошибка
+        counter_of_err |= ERORRFIRSTFREEPOS;    // 10 ������
     }
-    if (Get_first_free_pos(list) != 0 && !Is_free_node(list, Get_first_free_pos(list)))
+    if (list->first_free_pos != 0 && !Is_free_node(list, Get_first_free_pos(list)))
     {
-        counter_of_err |= ERORRFREEPOS; // 11 ошибка
+        counter_of_err |= ERORRFREEPOS; // 11 ������
     }
     if (Get_head(list) != 0 && !Is_valid_node(list, Get_head(list)))
     {
-        counter_of_err |= ERORRBADHEAD; // 12 ошибка
+        counter_of_err |= ERORRBADHEAD; // 12 ������
     }
     if (Get_tail(list) != 0 && !Is_valid_node(list, Get_tail(list)))
     {
-        counter_of_err |= ERORRBADTAIL; // 13 ошибка
+        counter_of_err |= ERORRBADTAIL; // 13 ������
     }
     if (Get_head(list) != 0 && list->prev[Get_head(list)] != 0)
     {
-        counter_of_err |= ERORRHEADNOTFIRST;    // 14 ошибка
+        counter_of_err |= ERORRHEADNOTFIRST;    // 14 ������
     }
     if (Get_tail(list) != 0 && list->next[Get_tail(list)] != 0)
     {
-        counter_of_err |= ERORRTAILNOTFIRST;    // 15 ошибка
+        counter_of_err |= ERORRTAILNOTFIRST;    // 15 ������
     }
     if (list->size > 0 && (Get_head(list) == 0 || Get_tail(list) == 0))
     {
-        counter_of_err |= ERROR_EMPTY_BUT_HAS_SIZE; // 16 ошибка
+        counter_of_err |= ERROR_EMPTY_BUT_HAS_SIZE; // 16 ������
     }
     if (counter_of_err > 0)
-        ListDump(list, counter_of_err, file, func, line); // dont call dump here
+        ListDump(list, counter_of_err, file, func, line); // TODO: dont call dump here
 
     return counter_of_err;
 }
 
 ListErr_t ListDump (my_list_t* list, int counter_of_err, const char* file, const char* func, int line)
 {
+    assert (list);
+
     fprintf(stderr, "\n======:list DUMP:======\n\n");
 
     fprintf(stderr, "Capacity: %lu\n", (unsigned long)list->capacity);
@@ -202,7 +204,7 @@ ListErr_t ListDump (my_list_t* list, int counter_of_err, const char* file, const
 
     int free_pos = Get_first_free_pos(list);
 
-    while (free_pos != 0 && free_pos <= (int)list->capacity)
+    while (free_pos != DUMMY_ELEMENT_POS && free_pos <= (int)list->capacity)
     {
         fprintf(stderr, "%d -> ", free_pos);
         free_pos = list->next[free_pos];
@@ -211,7 +213,7 @@ ListErr_t ListDump (my_list_t* list, int counter_of_err, const char* file, const
 
     fprintf(stderr, "\n======:END OF list:======\n\n");
 
-    Make_html_file(list, func);
+    Create_dump_files(list, func);
 
     Create_log_file (list, "list_dump.dot");
 
@@ -261,11 +263,11 @@ ListErr_t Realocation_list (my_list_t* list)
 
     for(size_t i = list->capacity; i <= new_capacity; i++)
     {
-        list->data[i] = 0;
+        list->data[i] = DUMMY_ELEMENT_POS;
 
         if (i == new_capacity)
         {
-            list->next[i] = 0;
+            list->next[i] = DUMMY_ELEMENT_POS;
         }
         else
         {
@@ -275,15 +277,15 @@ ListErr_t Realocation_list (my_list_t* list)
         list->prev[i] = -1;
     }
 
-    if (Get_first_free_pos(list) == 0)
+    if (list->first_free_pos == DUMMY_ELEMENT_POS)
     {
-        Set_first_free_pos(list, list->capacity);
+        list->first_free_pos = list->capacity;
     }
     else
     {
         int current = Get_first_free_pos(list);
 
-        while (list->next[current] != 0)
+        while (list->next[current] != DUMMY_ELEMENT_POS)
         {
             current = list->next[current];
         }
@@ -299,113 +301,107 @@ ListErr_t Realocation_list (my_list_t* list)
 }
 
 
-// Геттеры
-size_t Get_first_free_pos(my_list_t* List)
+// �������
+size_t Get_first_free_pos(my_list_t* list)
 {
-    assert(List);
-    assert(List->data);
+    assert(list);
 
-    if (List->data[0] < 0 || (size_t)List->data[0] > List->capacity)
-    {
-        fprintf(stderr, "ERROR: invalid first_free_pos value: %lf\n", List->data[0]);
-        return 0;
-    }
-    return (size_t)List->data[0];
+    return list->first_free_pos;
 }
 
-size_t Get_head(my_list_t* List)
+size_t Get_head(my_list_t* list)
 {
-    assert(List);
-    assert(List->next);
+    assert(list);
+    assert(list->next);
 
-    if (List->next[0] < 0 || (size_t)List->next[0] > List->capacity)
+    if (list->next[DUMMY_ELEMENT_POS] < 0 || (size_t)list->next[DUMMY_ELEMENT_POS] > list->capacity)
     {
-        fprintf(stderr, "ERROR: invalid head value: %d\n", List->next[0]);
+        fprintf(stderr, "ERROR: invalid head value: %d\n", list->next[DUMMY_ELEMENT_POS]);
         return 0;
     }
 
-    return List->next[0];
+    return list->next[DUMMY_ELEMENT_POS];
 }
 
-size_t Get_tail(my_list_t* List)
+size_t Get_tail(my_list_t* list)
 {
-    assert(List);
-    assert(List->prev);
+    assert(list);
+    assert(list->prev);
 
-    if (List->prev[0] < 0 || (size_t)List->prev[0] > List->capacity)
+    if (list->prev[DUMMY_ELEMENT_POS] < 0 || (size_t)list->prev[DUMMY_ELEMENT_POS] > list->capacity)
     {
-        fprintf(stderr, "ERROR: invalid tail value: %d\n", List->prev[0]);
+        fprintf(stderr, "ERROR: invalid tail value: %d\n", list->prev[DUMMY_ELEMENT_POS]);
         return 0;
     }
 
-    return List->prev[0];
+    return list->prev[DUMMY_ELEMENT_POS];
 }
 
-size_t Get_list_size(my_list_t* List)
+size_t Get_list_size(my_list_t* list)
 {
     size_t count_elem = 0;
-    size_t current = Get_head(List);
-    while (current != 0 && Is_valid_node(List, current))
+    size_t current = Get_head(list);
+    while (current != DUMMY_ELEMENT_POS && Is_valid_node(list, current))
     {
         count_elem++;
-        current = List->next[current];
-        if (current == Get_head(List)) break;
+        current = list->next[current];
+        if (current == Get_head(list)) break;
     }
     return count_elem;
 }
 
-// Сеттеры
-ListErr_t Set_first_free_pos(my_list_t* List, size_t value)
+// �������
+ListErr_t Set_first_free_pos(my_list_t* list, size_t value)
 {
-    assert(List);
-    assert(List->data);
+    assert(list);
+    assert(list->data);
 
-    if (value == 0 || (size_t)value > List->capacity)
+    if (value == DUMMY_ELEMENT_POS || (size_t)value > list->capacity)
     {
         fprintf(stderr, "ERROR: trying to set invalid first_free_pos: %d\n", value);
         return ERORRINDEX;
     }
 
-    List->data[0] = value;
+    list->first_free_pos = value;
 
     return NOERORR;
 }
 
-ListErr_t Set_head(my_list_t* List, size_t value)
+ListErr_t Set_head(my_list_t* list, size_t value)
 {
-    assert(List);
-    assert(List->next);
+    assert(list);
+    assert(list->next);
 
-    if (value != 0 && ((size_t)value > List->capacity || List->prev[value] == -1))
+    if (value != DUMMY_ELEMENT_POS && ((size_t)value > list->capacity || list->prev[value] == -1))
     {
         fprintf(stderr, "ERROR: trying to set invalid head: %d\n", value);
         return ERORRINDEX;
     }
 
-    List->next[0] = value;
+    list->next[DUMMY_ELEMENT_POS] = value;
     return NOERORR;
 }
 
-ListErr_t Set_tail(my_list_t* List, size_t value)
+ListErr_t Set_tail(my_list_t* list, size_t value)
 {
-    assert(List);
-    assert(List->prev);
+    assert(list);
+    assert(list->prev);
 
-    if (value != 0 && ((size_t)value > List->capacity || List->prev[value] == -1))
+    if (value != DUMMY_ELEMENT_POS && ((size_t)value > list->capacity || list->prev[value] == -1))
     {
         fprintf(stderr, "ERROR: trying to set invalid tail: %d\n", value);
         return ERORRINDEX;
     }
 
-    List->prev[0] = value;
+    list->prev[DUMMY_ELEMENT_POS] = value;
 
     return NOERORR;
 }
 
-// чеки
+// ����
 bool Has_cycles (my_list_t* list)
 {
-    if (Get_head(list) == 0)
+    if (Get_head(list) == DUMMY_ELEMENT_POS)
     {
         return false;
     }
@@ -414,7 +410,7 @@ bool Has_cycles (my_list_t* list)
 
     int actual_index = Get_head(list);
 
-    while (actual_index != 0)
+    while (actual_index != DUMMY_ELEMENT_POS)
     {
         if (visited[actual_index])
         {
@@ -430,37 +426,37 @@ bool Has_cycles (my_list_t* list)
     return false;
 }
 
-bool Is_valid_node (my_list_t* List, size_t node)
+bool Is_valid_node (my_list_t* list, size_t node)
 {
-    return (node > 0 && (unsigned)node <= List->capacity && List->prev[node] != -1);
+    return (node > 0 && (unsigned)node <= list->capacity && list->prev[node] != -1);
 }
 
-bool Is_free_node (my_list_t* List, size_t node)
+bool Is_free_node (my_list_t* list, size_t node)
 {
-    return (node > 0 && (unsigned)node <= List->capacity && List->prev[node] == -1);
+    return (node > 0 && (unsigned)node <= list->capacity && list->prev[node] == -1);
 }
 
-int Check_and_find_first_before_insert (my_list_t* List, int Index, size_t* First_free)
+int Check_and_find_first_before_insert (my_list_t* list, int Index, size_t* First_free)
 {
     #ifdef DEBUG
-        verificator(List, __FILE__, __func__, __LINE__);
+        verificator(list, __FILE__, __func__, __LINE__);
     #endif
 
-    if (Index < 0 || (unsigned)Index > List->capacity)
+    if (Index < DUMMY_ELEMENT_POS || (unsigned)Index > list->capacity)
     {
         fprintf(stderr,"ERORR: bad index\n");
         return ERORRINDEX;
     }
 
-    if (Index != 0 && Is_free_node(List, Index))
+    if (Index != DUMMY_ELEMENT_POS && Is_free_node(list, Index))
     {
         fprintf(stderr, "ERORR: cannot insert after free node\n");
         return ERORRINDEX;
     }
 
-    *First_free = Get_first_free_pos(List);
+    *First_free = Get_first_free_pos(list);
 
-    if (*First_free == 0)
+    if (*First_free == DUMMY_ELEMENT_POS)
     {
         fprintf(stderr, "ERORR: no free space. first_free_pos = 0\n");
         return ERORRINDEX;
@@ -469,167 +465,4 @@ int Check_and_find_first_before_insert (my_list_t* List, int Index, size_t* Firs
     return NOERORR;
 }
 
-void Make_html_file(my_list_t* list, const char* func)
-{
-    static int dump_counter = 1;
 
-    int result = 0;
-
-    if (dump_counter == 1)
-    {
-        system("mkdir -p imagesDump");
-    }
-
-    static FILE* html_file = NULL;
-
-    char graph_filename[50];
-    char dot_filename[50];
-    char command[100];
-
-    printf("=== Make_html_file called #%d ===\n", dump_counter);
-
-    if (html_file == NULL)
-    {
-        Create_head_html (&html_file);
-    }
-
-    fprintf(html_file, "<div class='dump'>\n");
-    fprintf(html_file, "<h2>Dump %d Called from: <font color=white>%s</font></h2>\n", dump_counter, func);
-
-    if (list == NULL)
-    {
-        printf("ERROR: list is NULL\n");
-        fprintf(html_file, "<p><b>ERROR: List is NULL</b></p>\n");
-        fprintf(html_file, "</div>\n");
-        fflush(html_file);
-        dump_counter++;
-        return;
-    }
-
-    snprintf(graph_filename, sizeof(graph_filename), "graph_%d.png", dump_counter);
-
-    snprintf(dot_filename, sizeof(dot_filename), "graph_%d.dot", dump_counter);
-
-    Create_log_file(list, dot_filename);
-
-    snprintf(command, sizeof(command), "dot -Tpng %s -o imagesDump/%s", dot_filename, graph_filename);
-
-    result = system(command);
-
-    if (result != 0)
-    {
-            printf("WARNING: Graph generation failed for dump #%d\n", dump_counter);
-    }
-
-    remove(dot_filename);
-
-    Create_table (html_file, list);
-
-    fprintf(html_file, "<h3>Graph Visualization</h3>\n");
-
-    fprintf(html_file, "<img src='imagesDump/%s' alt='Graph %d' width='1500'>\n", graph_filename, dump_counter);
-
-    Create_text_diagram (html_file, list);
-
-    fprintf(html_file, "</pre>\n");
-    fprintf(html_file, "</div>\n");
-
-    fflush(html_file);
-    printf("HTML dump #%d completed\n", dump_counter);
-
-    dump_counter++;
-}
-
-void Create_head_html (FILE** html_file)
-{
-    printf("Creating HTML file...\n");
-    *html_file = fopen("All_dumps.html", "w");
-
-    //html_file = *html_file;
-
-    if (html_file == NULL)
-    {
-        printf("ERROR: Cannot create HTML file\n");
-        return;
-    }
-
-    fprintf(*html_file, "<!DOCTYPE html>\n");
-    fprintf(*html_file, "<html lang='ru'>\n");
-    fprintf(*html_file, "<head>\n");
-    fprintf(*html_file, "<meta charset='UTF-8'>\n");
-    fprintf(*html_file, "<title>List Dumps</title>\n");
-    fprintf(*html_file, "<style>\n");
-    /* Основные цвета */
-    fprintf(*html_file, "body { background-color: #001f29; color: #ffffff; }\n");
-    /* Таблица */
-    fprintf(*html_file, "table { border-collapse: collapse; margin: 10px; }\n");
-    fprintf(*html_file, "th, td { border: 1px solid #0077a3; padding: 5px; }\n");
-    fprintf(*html_file, "th { background-color: #00415a; }\n");
-    /* Картинки */
-    fprintf(*html_file, "img { max-width: 100%%; height: auto; margin: 10px; }\n");
-    /* Блоки дампов */
-    fprintf(*html_file, ".dump { border: 2px solid #0099cc; padding: 15px; margin: 10px; }\n");
-    /* Заголовки */
-    fprintf(*html_file, "h1 { color: #00ccff; }\n");
-    fprintf(*html_file, "h2 { color: #00b8e6; }\n");
-    fprintf(*html_file, "h3 { color: #66d9ff; }\n");
-    /* Текстовая диаграмма */
-    fprintf(*html_file, "pre { color: #b3ecff; background-color: #001a21; padding: 10px; }\n");
-    fprintf(*html_file, "</style>\n");
-    fprintf(*html_file, "</head>\n");
-    fprintf(*html_file, "<body>\n");
-    fprintf(*html_file, "<h1 style='color: red;'>ALL LIST DUMPS</h1>\n");
-    printf("HTML file created successfully\n");
-}
-
-void Create_table (FILE* html_file, my_list_t* list)
-{
-    fprintf(html_file, "<p><b>Head:</b> %d, <b>Tail:</b> %d, <b>Free:</b> %d, <b>Size:</b> %d, <b>Capacity:</b> %d</p>\n",
-            Get_head(list), Get_tail(list), Get_first_free_pos(list), list->size, list->capacity);
-
-    fprintf(html_file, "<table border='1' style='border-collapse: collapse;'>\n");
-
-    fprintf(html_file, "<tr><th>Index</th><th>Data</th><th>Next</th><th>Prev</th><th>Status</th></tr>\n");
-
-    for (size_t i = 0; i <= list->capacity; i++)
-    {
-        const char* status = "USED";
-        if (i == 0) status = "SERVICE";
-        else if (list->prev[i] == -1) status = "FREE";
-
-        fprintf(html_file, "<tr><td>%u</td><td>%.2lf</td><td>%d</td><td>%d</td><td>%s</td></tr>\n",
-                (unsigned)i, list->data[i], list->next[i], list->prev[i], status);
-    }
-
-    fprintf(html_file, "</table>\n");
-}
-
-void Create_text_diagram (FILE* html_file, my_list_t* list)
-{
-    int actual_capacity = list->capacity;
-
-    fprintf(html_file, "<h3>Text Diagram:</h3>\n");
-    fprintf(html_file, "<pre>\n");
-
-    int current = Get_head(list);
-    fprintf(html_file, "HEAD → ");
-
-    if (current == 0)
-    {
-        fprintf(html_file, " → TAIL\n");
-    } else
-    {
-        int count = 0;
-        while (current != 0 && current <= actual_capacity && count < 20)
-        {
-            fprintf(html_file, "[%d]", current);
-            current = list->next[current];
-            if (current != 0 && current <= actual_capacity)
-            {
-                fprintf(html_file, " → ");
-            }
-            count++;
-        }
-        fprintf(html_file, " → TAIL\n");
-    }
-}
