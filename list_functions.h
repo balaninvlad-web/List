@@ -61,6 +61,7 @@ void Change_of_type(int i);
 ListErr_t Insert_after (my_list_t* List, int Index, int Value);
 ListErr_t Insert_before (my_list_t* List, int Index, int Value);
 ListErr_t Delite_at(my_list_t* List, int Index);
+ListErr_t Linearization_list (my_list_t* list);
 
 size_t Get_first_free_pos(my_list_t* List);
 size_t Get_head(my_list_t* List);

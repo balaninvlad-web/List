@@ -10,9 +10,9 @@ ListErr_t ListCtor (my_list_t* list, int capacity)
 
     list->capacity = capacity;
 
-    list->data = (data_t*)calloc(list->capacity + 2, sizeof(data_t));
-    list->next = (next_t*)calloc(list->capacity + 2, sizeof(next_t));
-    list->prev = (prev_t*)calloc(list->capacity + 2, sizeof(prev_t));
+    list->data = (data_t*)calloc(list->capacity + 1, sizeof(data_t));
+    list->next = (next_t*)calloc(list->capacity + 1, sizeof(next_t));
+    list->prev = (prev_t*)calloc(list->capacity + 1, sizeof(prev_t));
 
     if (!list->data || !list->next || !list->prev)
     {
@@ -461,6 +461,83 @@ int Check_and_find_first_before_insert (my_list_t* list, int Index, size_t* Firs
         fprintf(stderr, "ERORR: no free space. first_free_pos = 0\n");
         return ERORRINDEX;
     }
+
+    return NOERORR;
+}
+
+ListErr_t Linearization_list (my_list_t* list)
+{
+    assert (list);
+
+    if (list->size == 0)
+    {
+        return NOERORR;
+    }
+
+    data_t* new_data = (data_t*)calloc (list->capacity + 1, sizeof(data_t));
+    next_t* new_next = (next_t*)calloc (list->capacity + 1, sizeof(next_t));
+    prev_t* new_prev = (prev_t*)calloc (list->capacity + 1, sizeof(prev_t));
+
+    if (!new_data || !new_next || !new_prev)
+    {
+        free (new_data);
+        free (new_next);
+        free (new_prev);
+        return ERORRDATANULL;
+    }
+
+    new_data[DUMMY_ELEMENT_POS] = list->data[DUMMY_ELEMENT_POS];
+    new_next[DUMMY_ELEMENT_POS] = 0;
+    new_prev[DUMMY_ELEMENT_POS] = 0;
+
+    size_t current = Get_head(list);
+    size_t new_index = 1;
+
+    while (current != DUMMY_ELEMENT_POS && new_index <= list->capacity)
+    {
+        new_data[new_index] = list->data[current];
+        new_prev[new_index] = new_index - 1;
+        new_next[new_index] = new_index + 1;
+
+        current = list->next[current];
+        new_index++;
+    }
+
+    if (new_index > 1)
+    {
+        new_next[new_index - 1] = DUMMY_ELEMENT_POS;
+        new_prev[1] = DUMMY_ELEMENT_POS;
+        new_next[DUMMY_ELEMENT_POS] = 1;
+        new_prev[DUMMY_ELEMENT_POS] = new_index - 1;
+    }
+
+    for (size_t i = new_index; i <= list->capacity; i++)
+    {
+        if (i == list->capacity)
+        {
+            new_next[i] = 0;
+        }
+        else
+        {
+            new_next[i] = i + 1;
+        }
+        new_prev[i] = -1;
+        new_data[i] = 0;
+    }
+
+    list->first_free_pos = new_index;
+
+    free(list->data);
+    free(list->next);
+    free(list->prev);
+
+    list->data = new_data;
+    list->next = new_next;
+    list->prev = new_prev;
+
+    #ifdef DEBUG
+        verificator(list, __FILE__, __func__, __LINE__);
+    #endif
 
     return NOERORR;
 }
